@@ -5,11 +5,19 @@ pipeline {
 
         stage ('SCM Checkout') {          
             steps {
-              git 'https://github.com/lifeowner16/ant-project'
+              git 'https://github.com/lifeowner16/sample-java-project'
                     }
                 }   
-      
-         stage ('Compile Stage') {
+        
+        stage ('Clean Stage') {
+            steps {
+                withAnt(installation: 'LocalAnt') {
+                    sh "ant clean"
+                    }
+                }
+          } 
+         
+        stage ('Compile Stage') {
             steps {
                 withAnt(installation: 'LocalAnt') {
                     sh "ant compile"
